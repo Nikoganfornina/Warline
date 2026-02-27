@@ -89,26 +89,6 @@ export default function GameCanvas({ onExit }: { onExit?: () => void }) {
         {/* units */}
         {snap.units.map(u => {
           const isRanged = !!u.isRanged;
-
-  const setOrder = (order: 'attack' | 'advance' | 'retreat' | 'moveToFlag') => {
-    const g = gameRef.current;
-    if (!g) return;
-    g.setPlayerOrder(order);
-  };
-
-  const [placingFlag, setPlacingFlag] = useState(false);
-
-  const onSvgClick = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
-    if (!placingFlag) return;
-    const svg = e.currentTarget as SVGElement;
-    const rect = svg.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const g = gameRef.current;
-    if (!g) return;
-    g.placeFlag(x, y);
-    setPlacingFlag(false);
-  };
           // ranged are taller (height > width) to visually differ
           const w = isRanged ? u.size * 0.8 : u.size;
           const h = isRanged ? u.size * 1.6 : u.size;
